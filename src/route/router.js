@@ -6,8 +6,9 @@ const router = createRouter({
   routes
 })
 
-router.beforeEach((to, from, next) => {
-
+router.beforeEach((to, from) => {
+  // 阻止跳转
+  // return false
 })
 
 export default router
