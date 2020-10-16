@@ -14,19 +14,24 @@
 
 <script>
   import LoginForm from "./form.vue"
+  import {useRouter} from 'vue-router'
+  import {message} from 'ant-design-vue'
 
   export default {
     name: "login",
     components: {
       LoginForm
     },
-    setup() {
+    setup(props, context) {
+      const router = useRouter()
 
-    },
-    methods: {
-      handleLogin: function () {
-        this.$message.success('登录成功')
-        this.$router.replace('/index')
+      const handleLogin = () => {
+        message.success('登录成功')
+        router.replace('/index')
+      }
+
+      return {
+        handleLogin
       }
     }
   }

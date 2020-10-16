@@ -3,27 +3,25 @@
     <a-layout-sider v-model:collapsed="collapsed" :trigger="null" collapsible>
       <div class="logo">
         <img src="../../assets/logo.png" alt="">
+        <span v-if="!collapsed">Vue3 Project</span>
       </div>
       <a-menu theme="dark" mode="inline" v-model:selectedKeys="selectedMenuKeys">
         <a-menu-item key="1">
           <user-outlined/>
-          <span>nav 1</span>
+          <span>菜单1</span>
         </a-menu-item>
         <a-menu-item key="2">
           <video-camera-outlined/>
-          <span>nav 2</span>
+          <span>菜单2</span>
         </a-menu-item>
         <a-menu-item key="3">
           <upload-outlined/>
-          <span>nav 3</span>
+          <span>菜单3</span>
         </a-menu-item>
       </a-menu>
     </a-layout-sider>
     <a-layout>
-      <a-layout-header style="background: #fff; padding: 0">
-        <menu-unfold-outlined v-if="collapsed" class="trigger" @click="toggleCollapsed"/>
-        <menu-fold-outlined v-else class="trigger" @click="toggleCollapsed"/>
-      </a-layout-header>
+      <IndexHeader v-model:collapsed="collapsed" @setting="handleSetting"/>
       <a-layout-content :style="{ margin: '24px 16px', padding: '24px', background: '#fff', minHeight: '280px' }">
         <router-view></router-view>
       </a-layout-content>
@@ -31,14 +29,10 @@
   </a-layout>
 </template>
 <script>
-  import {
-    UserOutlined,
-    VideoCameraOutlined,
-    UploadOutlined,
-    MenuUnfoldOutlined,
-    MenuFoldOutlined,
-  } from '@ant-design/icons-vue';
   import {ref, reactive} from 'vue'
+  import {useRouter} from 'vue-router'
+  import {UserOutlined, VideoCameraOutlined, UploadOutlined} from '@ant-design/icons-vue';
+  import IndexHeader from "./header.vue"
 
   export default {
     name: 'index',
@@ -46,18 +40,25 @@
       UserOutlined,
       VideoCameraOutlined,
       UploadOutlined,
-      MenuUnfoldOutlined,
-      MenuFoldOutlined,
+      IndexHeader,
     },
     setup() {
+      const router = useRouter()
+
       const collapsed = ref(false)
       const selectedMenuKeys = reactive([])
-      const toggleCollapsed = () => collapsed.value = !collapsed.value
+
+      const handleSetting = () => {
+      }
+      const handleLogout = () => {
+        router.replace('/login')
+      }
 
       return {
         collapsed,
         selectedMenuKeys,
-        toggleCollapsed
+        handleSetting,
+        handleLogout
       }
     }
   };
@@ -65,18 +66,6 @@
 <style scoped lang="less">
   #layout {
     height: 100vh;
-
-    .trigger {
-      font-size: 18px;
-      line-height: 64px;
-      padding: 0 24px;
-      cursor: pointer;
-      transition: color 0.3s;
-
-      &:hover {
-        color: #1890ff;
-      }
-    }
 
     .logo {
       height: 32px;
@@ -87,6 +76,14 @@
         max-width: 100%;
         max-height: 100%;
       }
+
+      span {
+        font-size: 20px;
+        color: #fff;
+        margin-left: 10px;
+      }
     }
+
+
   }
 </style>

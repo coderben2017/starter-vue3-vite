@@ -3,14 +3,14 @@
     <a-form-item label="账号" v-bind="validateInfos.account">
       <a-input v-model:value="model.account" placeholder="请输入账号">
         <template v-slot:prefix>
-          <UserOutlined />
+          <UserOutlined/>
         </template>
       </a-input>
     </a-form-item>
     <a-form-item label="密码" v-bind="validateInfos.password">
       <a-input v-model:value="model.password" password placeholder="请输入密码">
         <template v-slot:prefix>
-          <LockOutlined />
+          <LockOutlined/>
         </template>
       </a-input>
     </a-form-item>
@@ -21,9 +21,9 @@
 </template>
 
 <script>
-  import { reactive } from 'vue'
-  import { useForm } from '@ant-design-vue/use'
-  import { UserOutlined, LockOutlined } from '@ant-design/icons-vue'
+  import {reactive, toRaw} from 'vue'
+  import {useForm} from '@ant-design-vue/use'
+  import {UserOutlined, LockOutlined} from '@ant-design/icons-vue'
 
   export default {
     name: "login-form",
@@ -31,7 +31,7 @@
       UserOutlined,
       LockOutlined
     },
-    setup() {
+    setup(props, context) {
       const model = reactive({
         account: undefined,
         password: undefined
@@ -45,21 +45,22 @@
           {min: 6, max: 18, message: '密码应为6~18位'},
         ],
       }
-      const { validate, validateInfos } = useForm(model, rules)
+      const {validate, validateInfos} = useForm(model, rules)
+
+      const handleSubmit = () => {
+        validate().then(() => {
+          // TODO: 真实登录
+          console.log(toRaw(model))
+
+          context.emit('success')
+        })
+      }
+
       return {
         model,
         validate,
         validateInfos,
-      }
-    },
-    methods: {
-      handleSubmit: function () {
-        this.validate().then(() => {
-          // TODO: 真实登录
-          console.log(this.model)
-
-          this.$emit('success')
-        })
+        handleSubmit
       }
     }
   }

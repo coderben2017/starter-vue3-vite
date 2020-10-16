@@ -1,5 +1,6 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import {createRouter, createWebHistory} from 'vue-router'
 import routes from './routes'
+import {Modal} from 'ant-design-vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -7,6 +8,8 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from) => {
+  Modal.destroyAll()
+
   // 阻止跳转
   // return false
 })
