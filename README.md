@@ -16,6 +16,6 @@ vue3脚手架
 - @ant-design/icons-vue
 
 ### 相比vue2.x的主要变化
-1. vue3.x composition api
-2. vue-router创建路由及路由守卫用法变化
+1. vue3.x composition api，组件用法的变化
+2. vue-router创建路由、路由守卫用法变化，增加了useRouter
 3. ant-design-vue增加了配套的use库，并将icon抽离到单独的仓库
