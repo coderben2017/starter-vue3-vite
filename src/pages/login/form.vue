@@ -33,8 +33,8 @@
     },
     setup(props, context) {
       const model = reactive({
-        account: undefined,
-        password: undefined
+        account: 'admin',
+        password: '123456'
       })
       const rules = {
         account: [

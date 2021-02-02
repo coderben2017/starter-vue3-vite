@@ -2,12 +2,26 @@
   <a-layout-header class="header">
     <menu-unfold-outlined v-if="collapsed" class="trigger" @click="toggleCollapsed"/>
     <menu-fold-outlined v-else class="trigger" @click="toggleCollapsed"/>
-    <a-dropdown class="dropdown">
+    <a-dropdown class="i18n">
       <a-avatar>
         <template v-slot:icon>
-          <UserOutlined/>
+          <GlobalOutlined/>
         </template>
       </a-avatar>
+      <template v-slot:overlay>
+        <a-menu v-model="language" @click="handleLanguageChange">
+          <a-menu-item key="zhCN">中文简体</a-menu-item>
+          <a-menu-item key="zhTW">
+              中文繁體
+          </a-menu-item>
+          <a-menu-item key="enUS">
+              English
+          </a-menu-item>
+        </a-menu>
+      </template>
+    </a-dropdown>
+    <a-dropdown class="user">
+      <a-avatar src="https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png" />
       <template v-slot:overlay>
         <a-menu>
           <a-menu-item>
@@ -29,14 +43,16 @@
 </template>
 
 <script>
-  import {ref} from 'vue'
+  import {ref, computed} from 'vue'
   import {useRouter} from 'vue-router'
+  import {useStore} from 'vuex'
   import {
     UserOutlined,
     MenuFoldOutlined,
     MenuUnfoldOutlined,
     SettingOutlined,
-    LogoutOutlined
+    LogoutOutlined,
+    GlobalOutlined
   } from '@ant-design/icons-vue';
   import {Modal} from 'ant-design-vue'
 
@@ -47,7 +63,8 @@
       MenuFoldOutlined,
       MenuUnfoldOutlined,
       SettingOutlined,
-      LogoutOutlined
+      LogoutOutlined,
+      GlobalOutlined
     },
     props: {
       collapsed: {
@@ -57,16 +74,17 @@
     },
     setup(props, context) {
       const router = useRouter()
+      const store = useStore()
 
       const collapsed = ref(props.collapsed)
+      const language = computed(() => [store.state.language])
 
       const toggleCollapsed = () => {
         collapsed.value = !collapsed.value
         context.emit('update:collapsed', collapsed.value)
       }
-      const handleSetting = () => {
-        context.emit('setting')
-      }
+      const handleLanguageChange = ({key}) => store.commit('setLanguage', key)
+      const handleSetting = () => context.emit('setting')
       const handleLogout = () => {
         Modal.confirm({
           title: '系统提示',
@@ -79,7 +97,9 @@
 
       return {
         collapsed,
+        language,
         toggleCollapsed,
+        handleLanguageChange,
         handleSetting,
         handleLogout
       }
@@ -105,7 +125,13 @@
       }
     }
 
-    .dropdown {
+    .i18n {
+      position: absolute;
+      right: 70px;
+      top: 16px;
+    }
+
+    .user {
       position: absolute;
       right: 20px;
       top: 16px;
