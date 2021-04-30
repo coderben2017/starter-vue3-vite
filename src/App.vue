@@ -18,9 +18,9 @@
 
       const locale = computed(() => {
         switch (store.state.language) {
-          case 'zh_CN': return zh_CN
-          case 'zh_TW': return zh_TW
-          case 'en_US': return en_US
+          case 'zhCN': return zh_CN
+          case 'zhTW': return zh_TW
+          case 'enUS': return en_US
           default: return zh_CN
         }
       })
