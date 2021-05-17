@@ -7,7 +7,7 @@ const store = createStore({
     }
   },
   mutations: {
-    setLanguage: (state, payload) => {
+    setLanguage: (state: any, payload: any): void => {
       state.language = payload
     }
   }

@@ -28,13 +28,14 @@
     </a-layout>
   </a-layout>
 </template>
-<script>
-  import {ref, reactive} from 'vue'
+
+<script lang="ts">
+  import {defineComponent, ref, reactive} from 'vue'
   import {useRouter} from 'vue-router'
   import {UserOutlined, VideoCameraOutlined, UploadOutlined} from '@ant-design/icons-vue';
   import IndexHeader from "./header.vue"
 
-  export default {
+  export default defineComponent({
     name: 'index',
     components: {
       UserOutlined,
@@ -48,9 +49,9 @@
       const collapsed = ref(false)
       const selectedMenuKeys = reactive([])
 
-      const handleSetting = () => {
+      const handleSetting = (): void => {
       }
-      const handleLogout = () => {
+      const handleLogout = (): void => {
         router.replace('/login')
       }
 
@@ -61,8 +62,9 @@
         handleLogout
       }
     }
-  };
+  })
 </script>
+
 <style scoped lang="less">
   #layout {
     height: 100vh;

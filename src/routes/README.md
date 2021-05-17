@@ -1,1 +1,0 @@
-- 文档：[vue-router-next](https://next.router.vuejs.org/guide/)

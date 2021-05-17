@@ -20,12 +20,16 @@
   </a-form>
 </template>
 
-<script>
-  import {reactive, toRaw} from 'vue'
+<script lang="ts">
+  import {defineComponent, reactive, toRaw} from 'vue'
   import {useForm} from '@ant-design-vue/use'
   import {UserOutlined, LockOutlined} from '@ant-design/icons-vue'
 
-  export default {
+  interface Props {
+    [key: string]: any
+  }
+
+  export default defineComponent({
     name: "login-form",
     components: {
       UserOutlined,
@@ -36,7 +40,7 @@
         account: 'admin',
         password: '123456'
       })
-      const rules = {
+      const rules: Props = {
         account: [
           {required: true, message: '请输入账号'}
         ],
@@ -47,7 +51,7 @@
       }
       const {validate, validateInfos} = useForm(model, rules)
 
-      const handleSubmit = () => {
+      const handleSubmit = (): void => {
         validate().then(() => {
           // TODO: 真实登录
           console.log(toRaw(model))
@@ -63,6 +67,6 @@
         handleSubmit
       }
     }
-  }
+  })
 </script>
 

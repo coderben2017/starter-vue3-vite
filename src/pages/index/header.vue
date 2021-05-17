@@ -42,8 +42,8 @@
   </a-layout-header>
 </template>
 
-<script>
-  import {ref, computed} from 'vue'
+<script lang="ts">
+  import {defineComponent, ref, computed} from 'vue'
   import {useRouter} from 'vue-router'
   import {useStore} from 'vuex'
   import {
@@ -56,7 +56,7 @@
   } from '@ant-design/icons-vue';
   import {Modal} from 'ant-design-vue'
 
-  export default {
+  export default defineComponent({
     name: "index-header",
     components: {
       UserOutlined,
@@ -79,7 +79,7 @@
       const collapsed = ref(props.collapsed)
       const language = computed(() => [store.state.language])
 
-      const toggleCollapsed = () => {
+      const toggleCollapsed = (): void => {
         collapsed.value = !collapsed.value
         context.emit('update:collapsed', collapsed.value)
       }
@@ -104,7 +104,7 @@
         handleLogout
       }
     },
-  }
+  })
 </script>
 
 <style scoped lang="less">

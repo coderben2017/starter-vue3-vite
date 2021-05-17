@@ -8,6 +8,7 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from) => {
+  console.log(to, from)
   Modal.destroyAll()
 
   // 阻止跳转

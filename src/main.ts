@@ -1,16 +1,16 @@
 import {createApp} from 'vue'
 import App from './App.vue'
-import router from './routes/router'
-import store from './store/index'
+import index from './router'
+import store from './store'
 import Antd from 'ant-design-vue'
 import 'ant-design-vue/dist/antd.css';
 import './index.css'
 
 const app = createApp(App);
 
-app.config.productionTip = false
+(app.config as any).productionTip = false
 
-app.use(router)
+app.use(index)
 app.use(store)
 app.use(Antd)
 

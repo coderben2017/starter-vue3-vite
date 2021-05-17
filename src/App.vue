@@ -4,14 +4,14 @@
   </a-config-provider>
 </template>
 
-<script>
-  import {computed} from 'vue'
+<script lang="ts">
+  import {defineComponent, computed} from 'vue'
   import {useStore} from 'vuex'
   import zh_CN from 'ant-design-vue/es/locale/zh_CN'
   import zh_TW from 'ant-design-vue/es/locale/zh_TW'
   import en_US from 'ant-design-vue/es/locale/en_US'
 
-  export default {
+  export default defineComponent({
     name: 'App',
     setup() {
       const store = useStore()
@@ -29,5 +29,5 @@
         locale
       }
     }
-  }
+  })
 </script>

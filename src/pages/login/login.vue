@@ -12,20 +12,21 @@
   </div>
 </template>
 
-<script>
-  import LoginForm from "./form.vue"
+<script lang="ts">
+  import {defineComponent} from 'vue'
   import {useRouter} from 'vue-router'
   import {message} from 'ant-design-vue'
+  import LoginForm from "./form.vue"
 
-  export default {
+  export default defineComponent({
     name: "login",
     components: {
       LoginForm
     },
-    setup(props, context) {
+    setup() {
       const router = useRouter()
 
-      const handleLogin = () => {
+      const handleLogin = (): void => {
         message.success('登录成功')
         router.replace('/index')
       }
@@ -34,7 +35,7 @@
         handleLogin
       }
     }
-  }
+  })
 </script>
 
 <style scoped lang="less">
